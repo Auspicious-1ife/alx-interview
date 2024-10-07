@@ -1,0 +1,1 @@
+This project involves implementing a function that generates Pascal's Triangle, a triangular array where each number is the sum of the two numbers directly above it. Pascal's Triangle is often used in combinatorics, algebra, and probability.
