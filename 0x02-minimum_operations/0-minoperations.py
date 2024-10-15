@@ -3,6 +3,7 @@
 Minimum Operations Module
 """
 
+
 def minOperations(n):
     """
     Calculates the fewest number of operations needed to
@@ -29,4 +30,3 @@ def minOperations(n):
             factor += 1  # Move to the next potential factor
 
     return (operations)
-
