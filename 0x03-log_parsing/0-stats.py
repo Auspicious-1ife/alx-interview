@@ -2,12 +2,16 @@
 """
 Log Parsing Script
 
-This script reads input from stdin, line by line, in the format of web server log entries and computes metrics based on the input. The script aggregates data and reports:
+This script reads input from stdin, line by line.
+The script aggregates data and reports:
 
 - Total file size of all processed log entries.
-- The count of occurrences of specific HTTP status codes (200, 301, 400, 401, 403, 404, 405, 500).
+- The count of occurrences of specific HTTP status codes
+(200, 301, 400, 401, 403, 404, 405, 500).
 
-The script processes data after every 10 lines and handles keyboard interruptions (CTRL + C), printing the final metrics before exiting.
+The script processes data after every 10 lines,
+and handles keyboard interruptions (CTRL + C),
+printing the final metrics before exiting.
 
 Input format:
 <IP Address> - [<date>] "GET /projects/260 HTTP/1.1" <status code> <file size>
@@ -38,6 +42,7 @@ total_size = 0
 status_codes = {200: 0, 301: 0, 400: 0, 401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
 line_count = 0
 
+
 def print_metrics():
     """
     Prints the aggregated metrics: total file size and status code counts.
@@ -48,9 +53,11 @@ def print_metrics():
         if status_codes[code] > 0:
             print(f"{code}: {status_codes[code]}")
 
+
 def handle_input_line(line):
     """
-    Processes a single line of log input and updates the total file size and status code counts.
+    Processes a single line of log input and,
+    updates the total file size and status code counts.
 
     Args:
         line (str): A line of input log data in the specified format.
@@ -62,7 +69,7 @@ def handle_input_line(line):
         if len(parts) > 6:
             file_size = int(parts[-1])
             status_code = int(parts[-2])
-            
+
             # Update file size
             total_size += file_size
 
@@ -72,12 +79,15 @@ def handle_input_line(line):
     except (IndexError, ValueError):
         pass  # If the format is wrong, skip the line
 
+
 def signal_handler(sig, frame):
     """
-    Handles the keyboard interruption (CTRL + C) and prints metrics before exiting.
+    Handles the keyboard interruption (CTRL + C),
+    and prints metrics before exiting.
     """
     print_metrics()
     sys.exit(0)
+
 
 # Attach signal handler to CTRL + C (SIGINT)
 signal.signal(signal.SIGINT, signal_handler)
@@ -99,4 +109,3 @@ if __name__ == "__main__":
 
     # Print final metrics after all input is processed
     print_metrics()
-
